@@ -645,6 +645,28 @@ MonoBehaviour:
   bullet: {fileID: 769930505}
   spawnPoint: {fileID: 509869784}
   bulletSpeed: 20
+  maxAmmo: 1
+  reloadTime: 2
+  reloadAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: Reload
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 1aed51a5-982f-4944-9923-6797482b8aa3
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings:
+      - m_Name: 
+        m_Id: fef71739-6092-43c0-b70c-090c3cb44e20
+        m_Path: <XRController>/{PrimaryButton}
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Reload
+        m_Flags: 0
+      m_Flags: 0
+    m_Reference: {fileID: 0}
 --- !u!64 &501902088
 MeshCollider:
   m_ObjectHideFlags: 0
