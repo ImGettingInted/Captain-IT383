@@ -2,6 +2,8 @@ using System;
 using Unity.XR.OpenVR;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class WheelController : MonoBehaviour
 {
@@ -10,7 +12,6 @@ public class WheelController : MonoBehaviour
     private Transform rightHandOriginalParent;
     private bool rightHandOnWheel = false;
     [SerializeField]
-    private InputActionReference rightTrigger;
     private bool rightTriggerPressed = false;
     
     
@@ -18,7 +19,6 @@ public class WheelController : MonoBehaviour
     private Transform leftHandOriginalParent;
     private bool leftHandOnWheel = false;
     [SerializeField]
-    private InputActionReference leftTrigger;
     private bool leftTriggerPressed = false;
     
     
@@ -34,43 +34,36 @@ public class WheelController : MonoBehaviour
     private float turnDampening;
 
     public Transform directionalObject;
-
-    private void OnEnable()
-    {
-        // Subscribe to events
-        rightTrigger.action.performed += OnRightTriggerPressed;
-        rightTrigger.action.canceled += OnRightTriggerReleased;
-
-        leftTrigger.action.performed += OnLeftTriggerPressed;
-        leftTrigger.action.canceled += OnLeftTriggerReleased;
-
-        // Must enable the actions to receive input
-        rightTrigger.action.Enable();
-        leftTrigger.action.Enable();
-    }
-
-    private void OnDisable()
-    {
-        // Unsubscribe to prevent memory leaks or errors when object is destroyed
-        rightTrigger.action.performed -= OnRightTriggerPressed;
-        rightTrigger.action.canceled -= OnRightTriggerReleased;
-
-        leftTrigger.action.performed -= OnLeftTriggerPressed;
-        leftTrigger.action.canceled -= OnLeftTriggerReleased;
-    }
-
-    // Context contains info about the input, like the value or phase
-    private void OnRightTriggerPressed(InputAction.CallbackContext context) => rightTriggerPressed = true;
-    private void OnRightTriggerReleased(InputAction.CallbackContext context) => rightTriggerPressed = false;
-
-    private void OnLeftTriggerPressed(InputAction.CallbackContext context) => leftTriggerPressed = true;
-    private void OnLeftTriggerReleased(InputAction.CallbackContext context) => leftTriggerPressed = false;
+    public InputActionProperty leftTriggerAction;
+    public InputActionProperty rightTriggerAction;
     
     public void Start()
     {
         vehicleRB = vehicle.GetComponent<Rigidbody>();
     }
 
+    public void Update()
+    {
+        if (leftTriggerAction.action.IsPressed())
+        {
+           LeftTriggerOn(); 
+        }
+        
+        if (leftTriggerAction.action.WasReleasedThisFrame())
+        {
+            LeftTriggerOff(); 
+        }
+        
+        if (rightTriggerAction.action.IsPressed())
+        { 
+            RightTriggerOn(); 
+        }
+                
+        if (rightTriggerAction.action.WasReleasedThisFrame())
+        {
+            RightTriggerOff(); 
+        }
+    }
     void FixedUpdate()
     {
         ReleaseHandsFromWheel();
@@ -89,6 +82,26 @@ public class WheelController : MonoBehaviour
         
     }
 
+    public void LeftTriggerOn()
+    {
+        leftTriggerPressed = true;
+    }
+    
+    public void LeftTriggerOff()
+    {
+        leftTriggerPressed = false;
+    }
+    
+    public void RightTriggerOn()
+    {
+        leftTriggerPressed = true;
+    }
+    
+    public void RightTriggerOff()
+    {
+        leftTriggerPressed = false;
+    }
+    
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player Hand"))
