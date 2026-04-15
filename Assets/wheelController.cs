@@ -12,7 +12,6 @@ public class WheelController : MonoBehaviour
     private Transform rightHandOriginalParent;
     private bool rightHandOnWheel = false;
     [SerializeField]
-    private InputActionReference rightTrigger;
     private bool rightTriggerPressed = false;
     
     
@@ -20,7 +19,6 @@ public class WheelController : MonoBehaviour
     private Transform leftHandOriginalParent;
     private bool leftHandOnWheel = false;
     [SerializeField]
-    private InputActionReference leftTrigger;
     private bool leftTriggerPressed = false;
     
     
@@ -46,22 +44,22 @@ public class WheelController : MonoBehaviour
 
     public void Update()
     {
-        if (leftTriggerAction.reference.action.phase == InputActionPhase.Performed)
+        if (leftTriggerAction.action.IsPressed())
         {
            LeftTriggerOn(); 
         }
         
-        if (leftTriggerAction.reference.action.phase == InputActionPhase.Disabled)
+        if (leftTriggerAction.action.WasReleasedThisFrame())
         {
             LeftTriggerOff(); 
         }
         
-        if (rightTriggerAction.reference.action.phase == InputActionPhase.Performed)
+        if (rightTriggerAction.action.IsPressed())
         { 
             RightTriggerOn(); 
         }
                 
-        if (rightTriggerAction.reference.action.phase == InputActionPhase.Disabled)
+        if (rightTriggerAction.action.WasReleasedThisFrame())
         {
             RightTriggerOff(); 
         }
