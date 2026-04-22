@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
 
         if (countdown <= 0)
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
 
             waveSpawner.waves[waveSpawner.currentWaveIndex].enemiesLeft--;
         }
