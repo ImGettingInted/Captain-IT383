@@ -6,11 +6,12 @@ public class BulletDamage : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        EnemyHealth enemy = other.GetComponent<EnemyHealth>();
+        EnemyHealth enemy = other.GetComponentInParent<EnemyHealth>();
 
         if (enemy != null)
         {
             enemy.TakeDamage(damage);
+            Debug.Log("Damage dealt: " + damage);
         }
 
         Destroy(gameObject);
