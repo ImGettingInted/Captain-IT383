@@ -2,10 +2,11 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float speed;
+   
 
     private float countdown = 5f;
 
-    private WaveSpawner waveSpawner;
+    [SerializeField] private WaveSpawner waveSpawner;
 
     private void Start()
     {
@@ -22,6 +23,10 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
 
             waveSpawner.waves[waveSpawner.currentWaveIndex].enemiesLeft--;
+        }
+        if (waveSpawner == null)
+        {
+            Debug.LogError("WaveSpawner not found on parent!");
         }
     }
 }

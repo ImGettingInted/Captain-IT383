@@ -1018,19 +1018,19 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4816409469987462, guid: f855683b127eede4c9d170be2672ae27, type: 3}
       insertIndex: 0
-      addedObject: {fileID: 595758062}
-    - targetCorrespondingSourceObject: {fileID: 4816409469987462, guid: f855683b127eede4c9d170be2672ae27, type: 3}
-      insertIndex: 1
       addedObject: {fileID: 926486762}
     - targetCorrespondingSourceObject: {fileID: 4816409469987462, guid: f855683b127eede4c9d170be2672ae27, type: 3}
-      insertIndex: 2
+      insertIndex: 1
       addedObject: {fileID: 769930506}
     - targetCorrespondingSourceObject: {fileID: 4816409469987462, guid: f855683b127eede4c9d170be2672ae27, type: 3}
-      insertIndex: 3
+      insertIndex: 2
       addedObject: {fileID: 501902081}
     - targetCorrespondingSourceObject: {fileID: 4816409469987462, guid: f855683b127eede4c9d170be2672ae27, type: 3}
       insertIndex: -1
       addedObject: {fileID: 88662046}
+    - targetCorrespondingSourceObject: {fileID: 4816409469987462, guid: f855683b127eede4c9d170be2672ae27, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1998885147}
     - targetCorrespondingSourceObject: {fileID: 4792072726638532, guid: f855683b127eede4c9d170be2672ae27, type: 3}
       insertIndex: 0
       addedObject: {fileID: 1103122455}
@@ -1412,11 +1412,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!4 &595758062 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3876171180312908299, guid: b06cee2df35c0e945bfe2a139257266c, type: 3}
-  m_PrefabInstance: {fileID: 1120373560}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &684111144
 GameObject:
   m_ObjectHideFlags: 0
@@ -1903,7 +1898,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   countdown: 0
   spawnPoint: {fileID: 1681881063}
-  waves: []
+  waves:
+  - enemies:
+    - {fileID: 1120373561}
+    - {fileID: 1120373561}
+    - {fileID: 1120373561}
+    timeToNextEnemy: 0
+    timeToNextWave: 60
+    enemiesLeft: 0
+  - enemies:
+    - {fileID: 1120373561}
+    - {fileID: 1120373561}
+    - {fileID: 1120373561}
+    - {fileID: 1120373561}
+    - {fileID: 1120373561}
+    - {fileID: 1120373561}
+    timeToNextEnemy: 0
+    timeToNextWave: 60
+    enemiesLeft: 0
+  - enemies:
+    - {fileID: 1120373561}
+    - {fileID: 1120373561}
+    - {fileID: 1120373561}
+    - {fileID: 1120373561}
+    - {fileID: 1120373561}
+    - {fileID: 1120373561}
+    - {fileID: 1120373561}
+    - {fileID: 1120373561}
+    - {fileID: 1120373561}
+    timeToNextEnemy: 0
+    timeToNextWave: 0
+    enemiesLeft: 0
   currentWaveIndex: 0
 --- !u!4 &983159889
 Transform:
@@ -1914,7 +1939,7 @@ Transform:
   m_GameObject: {fileID: 983159887}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -25.41038, y: 51.2757, z: -5.86771}
+  m_LocalPosition: {x: -16.55, y: 52.4, z: 19.31}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2061,7 +2086,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 956216388}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -6413613124213769111, guid: b06cee2df35c0e945bfe2a139257266c, type: 3}
       propertyPath: player
@@ -2073,15 +2098,15 @@ PrefabInstance:
       objectReference: {fileID: 1100753525}
     - target: {fileID: 3876171180312908299, guid: b06cee2df35c0e945bfe2a139257266c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.7652235
+      value: -16.323391
       objectReference: {fileID: 0}
     - target: {fileID: 3876171180312908299, guid: b06cee2df35c0e945bfe2a139257266c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.4
+      value: 35.920002
       objectReference: {fileID: 0}
     - target: {fileID: 3876171180312908299, guid: b06cee2df35c0e945bfe2a139257266c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.527
+      value: 2.4299989
       objectReference: {fileID: 0}
     - target: {fileID: 3876171180312908299, guid: b06cee2df35c0e945bfe2a139257266c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2097,7 +2122,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3876171180312908299, guid: b06cee2df35c0e945bfe2a139257266c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 0.000000021855694
       objectReference: {fileID: 0}
     - target: {fileID: 3876171180312908299, guid: b06cee2df35c0e945bfe2a139257266c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2123,6 +2148,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 595758058}
   m_SourcePrefab: {fileID: 100100000, guid: b06cee2df35c0e945bfe2a139257266c, type: 3}
+--- !u!114 &1120373561 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 181329013257480995, guid: b06cee2df35c0e945bfe2a139257266c, type: 3}
+  m_PrefabInstance: {fileID: 1120373560}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595758057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06866a3e7cd87b346906e06daa3efb9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy
 --- !u!1 &1135294301 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
@@ -2846,12 +2882,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1998885144}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 254.6, z: 0}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 16.22339, y: 207.20001, z: 7.099991}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 956216388}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &2026881792 stripped
 GameObject:
@@ -3086,6 +3122,6 @@ SceneRoots:
   - {fileID: 756192408}
   - {fileID: 2092139010}
   - {fileID: 1249617921}
+  - {fileID: 1120373560}
   - {fileID: 522380154}
-  - {fileID: 1998885147}
   - {fileID: 983159889}
