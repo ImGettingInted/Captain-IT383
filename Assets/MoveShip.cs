@@ -1,0 +1,35 @@
+using UnityEngine;
+
+public class MoveShip : MonoBehaviour
+{
+    public Rigidbody shipRb;
+    public WheelControlV2 wheelControl;
+    public bool moveShip;
+    public float moveSpeed;
+    public float turnSens;
+    private float currentYaw;
+
+    void Start()
+    {
+        currentYaw = shipRb.rotation.eulerAngles.y;
+    }
+    
+    void FixedUpdate()
+    {
+        if (moveShip)
+        {
+            
+            float wheelAngle = -transform.localEulerAngles.z;
+            
+            if (wheelAngle > 180) wheelAngle -= 360;
+            
+            currentYaw += wheelAngle * turnSens * Time.fixedDeltaTime;
+            Quaternion nextRotation = Quaternion.Euler(0, currentYaw, 0);
+            
+            Vector3 movement = nextRotation * Vector3.forward * moveSpeed * Time.fixedDeltaTime;
+
+            shipRb.MovePosition(shipRb.position + movement);
+            shipRb.MoveRotation(nextRotation);
+        }
+    }
+}
