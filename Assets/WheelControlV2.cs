@@ -89,99 +89,74 @@ using UnityEngine.InputSystem;
 
 public class WheelControlV2 : MonoBehaviour
 {
+    public InputActionProperty leftTrigger;
+    public InputActionProperty rightTrigger;
+
     public GameObject rightHand;
     private Transform rightHandOriginalParent;
     private bool rightHandOnWheel = false;
-    private bool rightTriggerPressed  = false;
-    
     
     public GameObject leftHand;
     private Transform leftHandOriginalParent;
     private bool leftHandOnWheel = false;
-    private bool leftTriggerPressed = false;
 
     public Transform[] snapPositions;
-    
     public GameObject vehicle;
 
-    [SerializeField]
-    float currentWheelRotation;
-    
-
-    public void OnLeftTriggerPressed()
+    void Update()
     {
-        leftTriggerPressed = true;
-    }
-
-    public void OnRightTriggerPressed()
-    {
-        rightTriggerPressed = true;
-    }
-
-    public void OnLeftTriggerReleased()
-    {
-        leftTriggerPressed = false;
-    }
-
-    public void OnRightTriggerReleased()
-    {
-        rightTriggerPressed = false;
-    }
-
-    void FixedUpdate()
-    {
-        ReleaseHandsFromWheel();
-
+        bool leftTriggerPressed = leftTrigger.action.ReadValue<float>() > 0.1f;
+        bool rightTriggerPressed = rightTrigger.action.ReadValue<float>() > 0.1f;
+        if (leftTriggerPressed)
+        {
+            Debug.Log("leftTriggerPressed");
+        }
+        if (rightTriggerPressed)
+        {
+            Debug.Log("rightTriggerPressed");
+        }
+        ReleaseHandsFromWheel(leftTriggerPressed, rightTriggerPressed);
         ConvertHandRotation();
-
-        currentWheelRotation = -transform.rotation.eulerAngles.z;
-        
     }
 
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player Hand"))
         {
-            
-            if (!rightHandOnWheel && rightTriggerPressed)
-            {
+            Debug.Log("player hand on wheel");
+            if (!rightHandOnWheel && rightTrigger.action.ReadValue<float>() > 0.1f)
                 PlaceHandOnWheel(ref rightHand, ref rightHandOriginalParent, ref rightHandOnWheel);
-            }
             
-            if (!leftHandOnWheel && leftTriggerPressed)
-            {
+            if (!leftHandOnWheel && leftTrigger.action.ReadValue<float>() > 0.1f)
                 PlaceHandOnWheel(ref leftHand, ref leftHandOriginalParent, ref leftHandOnWheel);
-            }
         }
         else
         {
-            Debug.Log("Not Player Hand");
+            Debug.Log("not player hand");
         }
     }
-
-    private void ReleaseHandsFromWheel()
+    
+    private void ReleaseHandsFromWheel(bool leftPressed, bool rightPressed)
     {
-        if (rightHandOnWheel && !rightTriggerPressed)
+        if (rightHandOnWheel && !rightPressed)
         {
-            rightHand.transform.parent = rightHandOriginalParent;
-            rightHand.transform.position = rightHandOriginalParent.position;
-            rightHand.transform.rotation = rightHandOriginalParent.rotation;
+            ResetHand(rightHand, rightHandOriginalParent);
             rightHandOnWheel = false;
         }
 
-        if (leftHandOnWheel && !leftTriggerPressed)
+        if (leftHandOnWheel && !leftPressed)
         {
-            leftHand.transform.parent = leftHandOriginalParent;
-            leftHand.transform.position = leftHandOriginalParent.position;
-            leftHand.transform.rotation = leftHandOriginalParent.rotation;
+            ResetHand(leftHand, leftHandOriginalParent);
             leftHandOnWheel = false;
         }
-
-        if (!leftHandOnWheel && !rightHandOnWheel)
-        {
-            transform.parent = transform.root;
-        }
     }
+
+    private void ResetHand(GameObject hand, Transform parent)
+    {
+        hand.transform.parent = parent;
+        hand.transform.SetPositionAndRotation(parent.position, parent.rotation);
+    }
+
     
     private void ConvertHandRotation()
     {
