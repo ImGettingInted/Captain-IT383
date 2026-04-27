@@ -1,87 +1,3 @@
-/* using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.XR.Interaction.Toolkit;
-using UnityEngine.XR.Interaction.Toolkit.Interactables;
-using UnityEngine.XR.Interaction.Toolkit.Interactors;
-
-public class WheelControlV2 : XRBaseInteractable
-{
-    [SerializeField] private Transform wheelTransform;
-
-    public UnityEvent<float> OnWheelRotated;
-
-    private float currentAngle = 0.0f;
-
-    protected override void OnSelectEntered(SelectEnterEventArgs args)
-    {
-        base.OnSelectEntered(args);
-        currentAngle = FindWheelAngle();
-    }
-
-    protected override void OnSelectExited(SelectExitEventArgs args)
-    {
-        base.OnSelectExited(args);
-        currentAngle = FindWheelAngle();
-    }
-
-    public override void ProcessInteractable(XRInteractionUpdateOrder.UpdatePhase updatePhase)
-    {
-        base.ProcessInteractable(updatePhase);
-
-        if (updatePhase == XRInteractionUpdateOrder.UpdatePhase.Dynamic)
-        {
-            if (isSelected)
-                RotateWheel();
-        }
-    }
-
-    private void RotateWheel()
-    {
-        // Convert that direction to an angle, then rotation
-        float totalAngle = FindWheelAngle();
-
-        // Apply difference in angle to wheel
-        float angleDifference = currentAngle - totalAngle;
-        wheelTransform.Rotate(transform.forward, -angleDifference, Space.Self);
-            
-        // Store angle for next process
-        currentAngle = totalAngle;
-        OnWheelRotated?.Invoke(angleDifference);
-    }
-
-    private float FindWheelAngle()
-    {
-        float totalAngle = 0;
-
-        // Combine directions of current interactors
-        foreach (IXRSelectInteractor interactor in interactorsSelecting)
-        {
-            Vector2 direction = FindLocalPoint(interactor.transform.position);
-            totalAngle += ConvertToAngle(direction) * FindRotationSensitivity();
-        }
-
-        return totalAngle;
-    }
-
-    private Vector2 FindLocalPoint(Vector3 position)
-    {
-        // Convert the hand positions to local, so we can find the angle easier
-        return transform.InverseTransformPoint(position).normalized;
-    }
-
-    private float ConvertToAngle(Vector2 direction)
-    {
-        // Use a consistent up direction to find the angle
-        return Vector2.SignedAngle(Vector2.up, direction);
-    }
-
-    private float FindRotationSensitivity()
-    {
-        // Use a smaller rotation sensitivity with two hands
-        return 1.0f / interactorsSelecting.Count;
-    }
-}
-*/
 using System;
 using Unity.XR.OpenVR;
 using UnityEngine;
@@ -160,24 +76,22 @@ public class WheelControlV2 : MonoBehaviour
     
     private void ConvertHandRotation()
     {
-        if (rightHandOnWheel && leftHandOnWheel)
+        if (rightHandOnWheel || leftHandOnWheel)
         {
-            float rightZ = rightHandOriginalParent.localEulerAngles.z;
-            float leftZ = leftHandOriginalParent.localEulerAngles.z;
+            Vector3 targetPos;
+
+            if (rightHandOnWheel && leftHandOnWheel) {
+                targetPos = (rightHand.transform.position + leftHand.transform.position) / 2f;
+            } else {
+                targetPos = rightHandOnWheel ? rightHand.transform.position : leftHand.transform.position;
+            }
             
-            float averageZ = Mathf.LerpAngle(leftZ, rightZ, 0.5f);
-        
-            transform.localRotation = Quaternion.Euler(0, 0, averageZ);
-        }
-        else if (rightHandOnWheel)
-        {
-            float zRot = rightHandOriginalParent.localEulerAngles.z;
-            transform.localRotation = Quaternion.Euler(0, 0, zRot);
-        }
-        else if (leftHandOnWheel)
-        {
-            float zRot = leftHandOriginalParent.localEulerAngles.z;
-            transform.localRotation = Quaternion.Euler(0, 0, zRot);
+            Vector3 localPos = transform.InverseTransformPoint(targetPos);
+            localPos.z = 0;
+            
+            float angle = Mathf.Atan2(localPos.y, localPos.x) * Mathf.Rad2Deg;
+            
+            transform.localRotation = Quaternion.Euler(0, 0, angle - 90f);
         }
     }
     
@@ -200,10 +114,10 @@ public class WheelControlV2 : MonoBehaviour
             }
         }
         
-        originalParent = hand.transform.parent;
+        //originalParent = hand.transform.parent;
 
-        hand.transform.parent = bestSnap.transform;
-        hand.transform.position = bestSnap.transform.position;
+        //hand.transform.parent = bestSnap.transform;
+        //hand.transform.position = bestSnap.transform.position;
         
         handOnWheel = true;
     }
