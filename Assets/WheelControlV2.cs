@@ -160,22 +160,24 @@ public class WheelControlV2 : MonoBehaviour
     
     private void ConvertHandRotation()
     {
-        if (rightHandOnWheel && !leftHandOnWheel)
+        if (rightHandOnWheel && leftHandOnWheel)
         {
-            Quaternion newRotation = Quaternion.Euler(0, vehicle.transform.rotation.eulerAngles.y, rightHandOriginalParent.transform.rotation.eulerAngles.z);
-            transform.rotation = newRotation;
+            float rightZ = rightHandOriginalParent.localEulerAngles.z;
+            float leftZ = leftHandOriginalParent.localEulerAngles.z;
+            
+            float averageZ = Mathf.LerpAngle(leftZ, rightZ, 0.5f);
+        
+            transform.localRotation = Quaternion.Euler(0, 0, averageZ);
         }
-        else if (!rightHandOnWheel && leftHandOnWheel)
+        else if (rightHandOnWheel)
         {
-            Quaternion newRotation = Quaternion.Euler(0, vehicle.transform.rotation.eulerAngles.y, leftHandOriginalParent.transform.rotation.eulerAngles.z);
-            transform.rotation = newRotation;
+            float zRot = rightHandOriginalParent.localEulerAngles.z;
+            transform.localRotation = Quaternion.Euler(0, 0, zRot);
         }
-        else if (rightHandOnWheel && leftHandOnWheel)
+        else if (leftHandOnWheel)
         {
-            Quaternion newRotationRight = Quaternion.Euler(0, vehicle.transform.rotation.eulerAngles.y, rightHandOriginalParent.transform.rotation.eulerAngles.z);
-            Quaternion newRotationLeft = Quaternion.Euler(0, vehicle.transform.rotation.eulerAngles.y, leftHandOriginalParent.transform.rotation.eulerAngles.z);
-            Quaternion finalRotation = Quaternion.Slerp(newRotationLeft, newRotationRight, 1.0f/2.0f);
-            transform.rotation = finalRotation;
+            float zRot = leftHandOriginalParent.localEulerAngles.z;
+            transform.localRotation = Quaternion.Euler(0, 0, zRot);
         }
     }
     
