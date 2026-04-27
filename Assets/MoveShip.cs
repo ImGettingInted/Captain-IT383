@@ -18,7 +18,7 @@ public class MoveShip : MonoBehaviour
     {
         if (moveShip)
         {
-            float wheelAngle = -wheelControl.transform.localEulerAngles.z;
+            float wheelAngle = -transform.localEulerAngles.z;
             float normalizedAngle = Mathf.DeltaAngle(0, wheelAngle);
             
             currentYaw += normalizedAngle * turnSens * Time.fixedDeltaTime;
