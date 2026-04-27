@@ -2084,6 +2084,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1983647401047194, guid: f855683b127eede4c9d170be2672ae27, type: 3}
       insertIndex: -1
       addedObject: {fileID: 522380160}
+    - targetCorrespondingSourceObject: {fileID: 1983647401047194, guid: f855683b127eede4c9d170be2672ae27, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 522380164}
+    - targetCorrespondingSourceObject: {fileID: 1983647401047194, guid: f855683b127eede4c9d170be2672ae27, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 522380163}
   m_SourcePrefab: {fileID: 100100000, guid: f855683b127eede4c9d170be2672ae27, type: 3}
 --- !u!1 &522380155 stripped
 GameObject:
@@ -2115,7 +2121,7 @@ MonoBehaviour:
   m_InteractionManager: {fileID: 756192407}
   m_Colliders: []
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 4294967295
   m_DistanceCalculationMode: 1
   m_SelectMode: 1
   m_FocusMode: 1
@@ -2195,6 +2201,54 @@ MonoBehaviour:
   moveShip: 0
   moveSpeed: 10
   turnSens: 0.09
+--- !u!54 &522380163
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 522380158}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 48
+  m_CollisionDetection: 0
+--- !u!65 &522380164
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 522380158}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.3, y: 0.3, z: 0.37194192}
+  m_Center: {x: 0, y: -0.0000022053719, z: -0.000001206994}
 --- !u!1 &533874086
 GameObject:
   m_ObjectHideFlags: 0
@@ -2369,7 +2423,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &745065825
 Transform:
   m_ObjectHideFlags: 0
