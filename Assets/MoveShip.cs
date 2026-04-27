@@ -18,12 +18,11 @@ public class MoveShip : MonoBehaviour
     {
         if (moveShip)
         {
+            float wheelAngle = -wheelControl.transform.localEulerAngles.z;
+            float normalizedAngle = Mathf.DeltaAngle(0, wheelAngle);
             
-            float wheelAngle = -transform.localEulerAngles.z;
+            currentYaw += normalizedAngle * turnSens * Time.fixedDeltaTime;
             
-            if (wheelAngle > 180) wheelAngle -= 360;
-            
-            currentYaw += wheelAngle * turnSens * Time.fixedDeltaTime;
             Quaternion nextRotation = Quaternion.Euler(0, currentYaw, 0);
             
             Vector3 movement = nextRotation * Vector3.forward * moveSpeed * Time.fixedDeltaTime;
