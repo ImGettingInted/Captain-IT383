@@ -1,7 +1,6 @@
-using System;
-using Unity.XR.OpenVR;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SpatialTracking; // Needed to disable tracking
 
 public class WheelControlV2 : MonoBehaviour
 {
@@ -23,14 +22,7 @@ public class WheelControlV2 : MonoBehaviour
     {
         bool leftTriggerPressed = leftTrigger.action.ReadValue<float>() > 0.1f;
         bool rightTriggerPressed = rightTrigger.action.ReadValue<float>() > 0.1f;
-        if (leftTriggerPressed)
-        {
-            Debug.Log("leftTriggerPressed");
-        }
-        if (rightTriggerPressed)
-        {
-            Debug.Log("rightTriggerPressed");
-        }
+
         ReleaseHandsFromWheel(leftTriggerPressed, rightTriggerPressed);
         ConvertHandRotation();
     }
@@ -39,16 +31,11 @@ public class WheelControlV2 : MonoBehaviour
     {
         if (other.CompareTag("Player Hand"))
         {
-            Debug.Log("player hand on wheel");
-            if (!rightHandOnWheel && rightTrigger.action.ReadValue<float>() > 0.1f)
+            if (!rightHandOnWheel && rightTrigger.action.ReadValue<float>() > 0.1f && other.gameObject == rightHand)
                 PlaceHandOnWheel(ref rightHand, ref rightHandOriginalParent, ref rightHandOnWheel);
             
-            if (!leftHandOnWheel && leftTrigger.action.ReadValue<float>() > 0.1f)
+            if (!leftHandOnWheel && leftTrigger.action.ReadValue<float>() > 0.1f && other.gameObject == leftHand)
                 PlaceHandOnWheel(ref leftHand, ref leftHandOriginalParent, ref leftHandOnWheel);
-        }
-        else
-        {
-            Debug.Log("not player hand");
         }
     }
     
@@ -70,10 +57,11 @@ public class WheelControlV2 : MonoBehaviour
     private void ResetHand(GameObject hand, Transform parent)
     {
         hand.transform.parent = parent;
+        
+        if (hand.TryGetComponent<TrackedPoseDriver>(out var driver)) driver.enabled = true;
         hand.transform.SetPositionAndRotation(parent.position, parent.rotation);
     }
 
-    
     private void ConvertHandRotation()
     {
         if (rightHandOnWheel || leftHandOnWheel)
@@ -95,11 +83,10 @@ public class WheelControlV2 : MonoBehaviour
         }
     }
     
-    
     private void PlaceHandOnWheel(ref GameObject hand, ref Transform originalParent, ref bool handOnWheel)
     {
-        var shortestDistance = Vector3.Distance(snapPositions[0].position, hand.transform.position);
-        var bestSnap = snapPositions[0];
+        Transform bestSnap = snapPositions[0];
+        float shortestDistance = Vector3.Distance(bestSnap.position, hand.transform.position);
         
         foreach (var snapPosition in snapPositions)
         {
@@ -114,10 +101,13 @@ public class WheelControlV2 : MonoBehaviour
             }
         }
         
-        //originalParent = hand.transform.parent;
-
-        //hand.transform.parent = bestSnap.transform;
-        //hand.transform.position = bestSnap.transform.position;
+        originalParent = hand.transform.parent;
+        
+        if (hand.TryGetComponent<TrackedPoseDriver>(out var driver)) driver.enabled = false;
+        
+        hand.transform.parent = bestSnap.transform;
+        hand.transform.localPosition = Vector3.zero;
+        hand.transform.localRotation = Quaternion.identity;
         
         handOnWheel = true;
     }
