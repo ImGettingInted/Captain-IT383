@@ -42,7 +42,7 @@ public class WheelControlV2 : XRBaseInteractable
 
         // Apply difference in angle to wheel
         float angleDifference = currentAngle - totalAngle;
-        wheelTransform.Rotate(transform.forward, -angleDifference, Space.World);
+        wheelTransform.Rotate(transform.forward, -angleDifference, Space.Self);
             
         // Store angle for next process
         currentAngle = totalAngle;
