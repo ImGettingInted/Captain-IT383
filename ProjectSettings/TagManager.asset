@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Anchor
   - Player Hand
+  - Enemy
   layers:
   - Default
   - TransparentFX
