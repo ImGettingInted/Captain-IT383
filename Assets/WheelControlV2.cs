@@ -7,6 +7,9 @@ public class WheelControlV2 : MonoBehaviour
     public InputActionProperty leftTrigger;
     public InputActionProperty rightTrigger;
 
+    private float wheelStartAngle;
+    private float handStartAngle;
+    
     public GameObject rightHand;
     private Transform rightHandOriginalParent;
     private bool rightHandOnWheel = false;
@@ -66,20 +69,17 @@ public class WheelControlV2 : MonoBehaviour
     {
         if (rightHandOnWheel || leftHandOnWheel)
         {
-            Vector3 targetPos;
+            Vector3 targetPos = (rightHandOnWheel && leftHandOnWheel) 
+                ? (rightHand.transform.position + leftHand.transform.position) / 2f 
+                : (rightHandOnWheel ? rightHand.transform.position : leftHand.transform.position);
 
-            if (rightHandOnWheel && leftHandOnWheel) {
-                targetPos = (rightHand.transform.position + leftHand.transform.position) / 2f;
-            } else {
-                targetPos = rightHandOnWheel ? rightHand.transform.position : leftHand.transform.position;
-            }
-            
             Vector3 localPos = transform.InverseTransformPoint(targetPos);
-            localPos.z = 0;
-            
-            float angle = Mathf.Atan2(localPos.y, localPos.x) * Mathf.Rad2Deg;
-            
-            transform.localRotation = Quaternion.Euler(0, 0, angle - 90f);
+            float currentHandAngle = Mathf.Atan2(localPos.y, localPos.x) * Mathf.Rad2Deg;
+
+            float angleDelta = currentHandAngle - handStartAngle;
+        
+            // FIX: Explicitly set X and Y to 0 so the wheel only spins on Z
+            transform.localRotation = Quaternion.Euler(0, 0, wheelStartAngle + angleDelta);
         }
     }
     
@@ -108,6 +108,10 @@ public class WheelControlV2 : MonoBehaviour
         hand.transform.parent = bestSnap.transform;
         hand.transform.localPosition = Vector3.zero;
         hand.transform.localRotation = Quaternion.identity;
+        
+        wheelStartAngle = transform.localEulerAngles.z;
+        Vector3 localPos = transform.InverseTransformPoint(hand.transform.position);
+        handStartAngle = Mathf.Atan2(localPos.y, localPos.x) * Mathf.Rad2Deg;
         
         handOnWheel = true;
     }
