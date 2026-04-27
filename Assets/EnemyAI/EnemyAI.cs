@@ -5,7 +5,7 @@ public class EnemyAI : MonoBehaviour
 {
     [Header("References")]
     public Transform player;
-    public Animator animator;
+    Animator animator;
     public PlayerHealth playerHealth;
 
     [Header("Settings")]
@@ -33,11 +33,17 @@ public class EnemyAI : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        if (animator == null) animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         if (playerHealth == null && player != null) playerHealth = player.GetComponent<PlayerHealth>();
 
         SetNewPatrolPoint();
         currentState = State.Patrol;
+        animator.SetBool("IsPatrol", true);
+        animator.SetBool("IsATKIDLE", false);
+        animator.SetBool("IsHit", false);
+        animator.SetBool("IsATK", false);
+        animator.SetBool("IsChase", false);
+        animator.SetBool("IsATKD", false);
     }
 
     void Update()
@@ -70,6 +76,7 @@ public class EnemyAI : MonoBehaviour
                 currentState = State.Attack;
             else if (distanceToPlayer <= detectionRadius)
                 currentState = State.Chase;
+
             else
                 currentState = State.Patrol;
         }
@@ -82,7 +89,7 @@ public class EnemyAI : MonoBehaviour
             case State.Attack: Attack(); break;
         }
 
-        animator.SetBool("isWalking", agent.velocity.magnitude > 0.1f && !isAttacking);
+        
 
         if (!isAttacking)
             RotateTowardsMovementDirection();
@@ -90,6 +97,7 @@ public class EnemyAI : MonoBehaviour
 
     void Patrol()
     {
+        animator.SetBool("IsPatrol", true);
         if (isIdle)
         {
             idleTimer += Time.deltaTime;
@@ -127,12 +135,15 @@ public class EnemyAI : MonoBehaviour
         isIdle = false;
         isPatrolling = false;
 
+        animator.SetBool("IsChase", true);
+
         if (agent.isOnNavMesh && player != null)
             agent.SetDestination(player.position);
     }
 
     void Attack()
     {
+        animator.SetBool("IsATKIDLE", true);
         if (isAttacking) return;
 
         float distance = Vector3.Distance(transform.position, player.position);
@@ -151,14 +162,14 @@ public class EnemyAI : MonoBehaviour
         Vector3 lookPos = new Vector3(player.position.x, transform.position.y, player.position.z);
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookPos - transform.position), Time.deltaTime * rotationSpeed);
 
-        animator.ResetTrigger("Attack");
-        animator.SetTrigger("Attack");
+        
     }
 
     public void DealDamage()
     {
         if (Vector3.Distance(transform.position, player.position) <= attackRange)
         {
+            animator.SetBool("isATK", true);
             playerHealth.TakeDamage(10); // Damage amount
         }
     }
@@ -177,13 +188,8 @@ public class EnemyAI : MonoBehaviour
         attackTimer = 0f;
         cooldownTimer = attackCooldown;
 
-        animator.ResetTrigger("Attack");
+        
 
-        // Instantly cut the attack animation
-        if (animator.HasState(0, Animator.StringToHash("Walk")))
-            animator.CrossFade("Walk", 0.1f);
-        else if (animator.HasState(0, Animator.StringToHash("Walk")))
-            animator.CrossFade("Walk", 0.1f);
 
         if (agent.isOnNavMesh && player != null)
             agent.SetDestination(player.position);
