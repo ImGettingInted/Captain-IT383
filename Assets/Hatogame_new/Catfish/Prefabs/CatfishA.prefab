@@ -68,13 +68,7 @@ PrefabInstance:
       addedObject: {fileID: -7593225244194544985}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 475d05aae8eb3a94882ab417b6df0f25, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -6413613124213769111}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 475d05aae8eb3a94882ab417b6df0f25, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 2954178150032899542}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 475d05aae8eb3a94882ab417b6df0f25, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 181329013257480995}
   m_SourcePrefab: {fileID: 100100000, guid: 475d05aae8eb3a94882ab417b6df0f25, type: 3}
 --- !u!1 &4503948766496688305 stripped
 GameObject:
@@ -130,27 +124,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-6413613124213769111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4503948766496688305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9f168a9ef39e3e45a9b2dfe7e90b6f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
-  player: {fileID: 0}
-  playerHealth: {fileID: 0}
-  detectionRadius: 15
-  attackRange: 2
-  patrolRadius: 20
-  attackCooldown: 2
-  patrolIdleTime: 3
-  rotationSpeed: 7
-  attackDuration: 1
 --- !u!195 &2954178150032899542
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -173,16 +146,3 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &181329013257480995
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4503948766496688305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06866a3e7cd87b346906e06daa3efb9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  speed: 0
