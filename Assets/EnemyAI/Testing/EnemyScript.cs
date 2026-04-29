@@ -374,6 +374,7 @@ public class EnemyScript : MonoBehaviour
         }
 
         if (anim) anim.SetTrigger(DieTrigger);
+        GameObject.Destroy(gameObject);
 
         currentState = EnemyState.Patrol;
         isPausing = false;

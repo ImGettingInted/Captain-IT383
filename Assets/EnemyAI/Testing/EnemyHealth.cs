@@ -61,10 +61,6 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         }
     }
 
-    public void Heal(float amount)
-    {
-        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
-    }
 
     private void Die()
     {
