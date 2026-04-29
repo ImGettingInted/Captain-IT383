@@ -2084,6 +2084,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   maxHealth: 100
+  currentHealth: 0
+  healthBarSlider: {fileID: 0}
+  healthBarValueText: {fileID: 0}
+  scriptsToDisable: []
+  isInvincible: 0
+  thornsActive: 0
+  thornsRadius: 4
+  thornsDamage: 10
+  regenIdleSeconds: 3
+  regenAfterHitDelay: 3
+  movementThreshold: 0.02
+  regenRate: 20
 --- !u!4 &1100753526
 Transform:
   m_ObjectHideFlags: 0
@@ -2210,7 +2222,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: CatfishA
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -6413613124213769111, guid: b06cee2df35c0e945bfe2a139257266c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -2220,6 +2233,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4503948766496688305, guid: b06cee2df35c0e945bfe2a139257266c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1120373566}
+    - targetCorrespondingSourceObject: {fileID: 4503948766496688305, guid: b06cee2df35c0e945bfe2a139257266c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1120373568}
+    - targetCorrespondingSourceObject: {fileID: 4503948766496688305, guid: b06cee2df35c0e945bfe2a139257266c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1120373567}
   m_SourcePrefab: {fileID: 100100000, guid: b06cee2df35c0e945bfe2a139257266c, type: 3}
 --- !u!114 &1120373561 stripped
 MonoBehaviour:
@@ -2260,6 +2279,49 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1120373567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595758057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25c5004d9a8ea4c469d6bfccd8185d43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+  maxHealth: 100
+  currentHealth: 0
+  flashDuration: 0.1
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &1120373568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595758057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3698a36ea674cd64b87bf0468bf4d8f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyScript
+  player: {fileID: 926486762}
+  detectionRange: 12
+  attackRange: 2
+  patrolRadius: 15
+  patrolSpeed: 1.8
+  chaseSpeed: 3.6
+  patrolPauseTime: 1.5
+  attackDamage: 10
+  timeBetweenAttacks: 1.2
+  attackWindupTime: 0.4
+  hitActiveTime: 0.3
+  fadeDelay: 0.4
+  fadeDuration: 1.2
+  disableCollidersOnDeath: 1
+  destroyAfterFade: 1
 --- !u!1 &1135294301 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
