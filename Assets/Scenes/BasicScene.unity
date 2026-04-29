@@ -619,6 +619,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1135294307}
+    - targetCorrespondingSourceObject: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1135294309}
   m_SourcePrefab: {fileID: 100100000, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
 --- !u!1001 &501902080
 PrefabInstance:
@@ -1962,19 +1965,19 @@ MonoBehaviour:
   spawnPoint: {fileID: 1681881063}
   waves:
   - enemies:
-    - {fileID: 1120373561}
-    - {fileID: 1120373561}
-    - {fileID: 1120373561}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
     timeToNextEnemy: 5
     timeToNextWave: 30
     enemiesLeft: 0
   - enemies:
-    - {fileID: 1120373561}
-    - {fileID: 1120373561}
-    - {fileID: 1120373561}
-    - {fileID: 1120373561}
-    - {fileID: 1120373561}
-    - {fileID: 1120373561}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
     timeToNextEnemy: 5
     timeToNextWave: 60
     enemiesLeft: 0
@@ -2240,17 +2243,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1120373567}
   m_SourcePrefab: {fileID: 100100000, guid: b06cee2df35c0e945bfe2a139257266c, type: 3}
---- !u!114 &1120373561 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 181329013257480995, guid: b06cee2df35c0e945bfe2a139257266c, type: 3}
-  m_PrefabInstance: {fileID: 1120373560}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 595758057}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06866a3e7cd87b346906e06daa3efb9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy
 --- !u!4 &1120373565 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3876171180312908299, guid: b06cee2df35c0e945bfe2a139257266c, type: 3}
@@ -2293,8 +2285,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   maxHealth: 100
   currentHealth: 0
-  flashDuration: 0.1
-  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 1
+  flashColor: {r: 1, g: 0.34306586, b: 0, a: 1}
 --- !u!114 &1120373568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2396,6 +2388,31 @@ MonoBehaviour:
   m_SocketScaleMode: 0
   m_FixedScale: {x: 1, y: 1, z: 1}
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
+--- !u!114 &1135294309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135294301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9f3ea2929fa09c4fac9db16aef20984, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  maxHealth: 100
+  currentHealth: 0
+  healthBarSlider: {fileID: 0}
+  healthBarValueText: {fileID: 0}
+  scriptsToDisable: []
+  isInvincible: 0
+  thornsActive: 0
+  thornsRadius: 4
+  thornsDamage: 10
+  regenIdleSeconds: 3
+  regenAfterHitDelay: 3
+  movementThreshold: 0.02
+  regenRate: 20
 --- !u!1 &1233652961 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1327614130263004, guid: f855683b127eede4c9d170be2672ae27, type: 3}

@@ -108,7 +108,7 @@ public class EnemyScript : MonoBehaviour
                 agent.ResetPath();
             }
 
-            SetMoveSpeed(0f);
+           
             if (anim) anim.speed = 0f;
 
             freezeTimer -= Time.deltaTime;
@@ -159,7 +159,7 @@ public class EnemyScript : MonoBehaviour
             case EnemyState.Attack: AttackTick(dist); break;
         }
 
-        SetMoveSpeed(agent != null ? agent.velocity.magnitude : 0f);
+       
     }
 
     private void TryResolvePlayer(bool force)
@@ -180,7 +180,7 @@ public class EnemyScript : MonoBehaviour
             agent.ResetPath();
         }
 
-        SetMoveSpeed(0f);
+       
 
         if (anim)
         {
@@ -490,10 +490,7 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
-    private void SetMoveSpeed(float v)
-    {
-        if (anim) anim.SetFloat(MoveSpeedHash, v);
-    }
+    
 
     // ------------------------------
     // Freeze
@@ -516,7 +513,6 @@ public class EnemyScript : MonoBehaviour
         {
             anim.speed = 0f;
             anim.ResetTrigger(AttackTrigger);
-            SetMoveSpeed(0f);
         }
     }
 
