@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SpatialTracking; // Needed to disable tracking
@@ -77,8 +78,7 @@ public class WheelControlV2 : MonoBehaviour
             float currentHandAngle = Mathf.Atan2(localPos.y, localPos.x) * Mathf.Rad2Deg;
 
             float angleDelta = currentHandAngle - handStartAngle;
-        
-            // FIX: Explicitly set X and Y to 0 so the wheel only spins on Z
+            
             transform.localRotation = Quaternion.Euler(0, 0, wheelStartAngle + angleDelta);
         }
     }
