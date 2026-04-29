@@ -81,6 +81,10 @@ public class WheelControlV2 : MonoBehaviour
             
             transform.localRotation = Quaternion.Euler(0, 0, wheelStartAngle + angleDelta);
         }
+        else 
+        {
+            transform.localRotation = Quaternion.Euler(0f, 0f, transform.localEulerAngles.z);
+        }
     }
     
     private void PlaceHandOnWheel(ref GameObject hand, ref Transform originalParent, ref bool handOnWheel)
