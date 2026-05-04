@@ -68,7 +68,13 @@ PrefabInstance:
       addedObject: {fileID: -7593225244194544985}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 475d05aae8eb3a94882ab417b6df0f25, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -6413613124213769111}
+      addedObject: {fileID: 2954178150032899542}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 475d05aae8eb3a94882ab417b6df0f25, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -229189911145673678}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 475d05aae8eb3a94882ab417b6df0f25, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -2632003026161318732}
   m_SourcePrefab: {fileID: 100100000, guid: 475d05aae8eb3a94882ab417b6df0f25, type: 3}
 --- !u!1 &4503948766496688305 stripped
 GameObject:
@@ -124,7 +130,29 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-6413613124213769111
+--- !u!195 &2954178150032899542
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4503948766496688305}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &-229189911145673678
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,15 +161,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 4503948766496688305}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9f168a9ef39e3e45a9b2dfe7e90b6f2, type: 3}
+  m_Script: {fileID: 11500000, guid: 06866a3e7cd87b346906e06daa3efb9d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  speed: 0
+  waveSpawner: {fileID: 0}
+--- !u!114 &-2632003026161318732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4503948766496688305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3698a36ea674cd64b87bf0468bf4d8f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyScript
   player: {fileID: 0}
-  playerHealth: {fileID: 0}
-  detectionRadius: 15
+  detectionRange: 12
   attackRange: 2
-  patrolRadius: 20
-  attackCooldown: 2
-  patrolIdleTime: 3
-  rotationSpeed: 7
-  attackDuration: 1
+  patrolRadius: 15
+  patrolSpeed: 1.8
+  chaseSpeed: 3.6
+  patrolPauseTime: 1.5
+  attackDamage: 10
+  timeBetweenAttacks: 1.2
+  attackWindupTime: 0.4
+  hitActiveTime: 0.3
+  fadeDelay: 0.4
+  fadeDuration: 1.2
+  disableCollidersOnDeath: 1
+  destroyAfterFade: 1
