@@ -10,7 +10,12 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     public float maxHealth = 100f;
     public float currentHealth;
 
+    
+
     [Header("UI")]
+
+    public DeathMenu deathMenu;
+
     public Slider healthBarSlider;
     public TextMeshProUGUI healthBarValueText;
 
@@ -201,35 +206,39 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     }
 
     private void Die()
+{
+    if (isDead) return;
+
+    isDead = true;
+    PlayerIsDead = true;
+
+    StopRegen();
+
+    Debug.Log("Player has died!");
+
+    foreach (var script in scriptsToDisable)
     {
-        if (isDead) return;
-
-        isDead = true;
-        PlayerIsDead = true;
-
-        StopRegen();
-
-        Debug.Log("Player has died!");
-
-        foreach (var script in scriptsToDisable)
-        {
-            if (script != null)
-                script.enabled = false;
-        }
-
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-
-        var rb = GetComponent<Rigidbody>();
-        if (rb)
-        {
-            rb.linearVelocity = Vector3.zero;
-            rb.isKinematic = true;
-        }
-
-        DeathTransition.Instance?.PlayerDied();
+        if (script != null)
+            script.enabled = false;
     }
 
+    Cursor.lockState = CursorLockMode.None;
+    Cursor.visible = true;
+
+    var rb = GetComponent<Rigidbody>();
+    if (rb)
+    {
+        rb.linearVelocity = Vector3.zero;
+        rb.isKinematic = true;
+    }
+
+    DeathTransition.Instance?.PlayerDied();
+
+    if (deathMenu != null)
+    {
+        deathMenu.ShowDeath();
+    }
+}
     public void ResetPlayer()
     {
         isDead = false;
