@@ -21,7 +21,9 @@ public class MoveShip : MonoBehaviour
             float wheelAngle = -transform.localEulerAngles.z;
             float normalizedAngle = Mathf.DeltaAngle(0, wheelAngle);
             
-            currentYaw += normalizedAngle * turnSens * Time.fixedDeltaTime;
+            float clampAngle = Mathf.Clamp(normalizedAngle, -160f, 160f);
+            transform.localRotation = Quaternion.Euler(0, 0, -clampAngle);
+            currentYaw += clampAngle * turnSens * Time.fixedDeltaTime;
             
             Quaternion nextRotation = Quaternion.Euler(0, currentYaw, 0);
             

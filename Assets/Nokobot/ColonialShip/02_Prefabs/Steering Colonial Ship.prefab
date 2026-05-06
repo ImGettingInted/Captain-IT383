@@ -1000,7 +1000,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4816409469987462}
   m_Layer: 0
-  m_Name: Colonial Ship
+  m_Name: Steering Colonial Ship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
