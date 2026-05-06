@@ -25,8 +25,16 @@ public class WheelControlV2 : MonoBehaviour
     void Update()
     {
         bool leftTriggerPressed = leftTrigger.action.ReadValue<float>() > 0.1f;
+        if (leftTriggerPressed)
+        {
+            Debug.Log("Left Trigger Pressed");
+        }
         bool rightTriggerPressed = rightTrigger.action.ReadValue<float>() > 0.1f;
-
+        if (rightTriggerPressed)
+        {
+            Debug.Log("Right Trigger Pressed");
+        }
+        
         ReleaseHandsFromWheel(leftTriggerPressed, rightTriggerPressed);
         ConvertHandRotation();
     }
@@ -35,6 +43,7 @@ public class WheelControlV2 : MonoBehaviour
     {
         if (other.CompareTag("Player Hand"))
         {
+            Debug.Log("Player Hand inside wheel");
             if (!rightHandOnWheel && rightTrigger.action.ReadValue<float>() > 0.1f && other.gameObject == rightHand)
                 PlaceHandOnWheel(ref rightHand, ref rightHandOriginalParent, ref rightHandOnWheel);
             
@@ -70,6 +79,7 @@ public class WheelControlV2 : MonoBehaviour
     {
         if (rightHandOnWheel || leftHandOnWheel)
         {
+            Debug.Log("Hand on Wheel");
             Vector3 targetPos = (rightHandOnWheel && leftHandOnWheel) 
                 ? (rightHand.transform.position + leftHand.transform.position) / 2f 
                 : (rightHandOnWheel ? rightHand.transform.position : leftHand.transform.position);
