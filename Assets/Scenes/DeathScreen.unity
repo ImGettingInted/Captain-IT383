@@ -2963,6 +2963,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   deathSound: {fileID: 0}
+  deathSound2: {fileID: 0}
   audioSource: {fileID: 0}
   deathMenu: {fileID: 0}
   healthBarSlider: {fileID: 771308302}

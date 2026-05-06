@@ -1812,6 +1812,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletDamage
   damage: 15
+  isSword: 1
+  audioSource: {fileID: 574648927}
+  swordDrawSound: {fileID: 8300000, guid: ddf48e3b51a2a2f42a53eecf1d21aa2b, type: 3}
+  swordMissSound: {fileID: 8300000, guid: 04f87be826ab9274bab3bff69840c16b, type: 3}
+  swordHitSound: {fileID: 8300000, guid: 2d5734d9013d4bc4c910194e9d871fe2, type: 3}
 --- !u!64 &292122449
 MeshCollider:
   m_ObjectHideFlags: 0
