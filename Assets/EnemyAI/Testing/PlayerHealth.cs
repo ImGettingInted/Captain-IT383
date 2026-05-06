@@ -10,7 +10,15 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     public float maxHealth = 100f;
     public float currentHealth;
 
+    [Header("Audio")]
+    public AudioClip deathSound;
+    public AudioClip deathSound2; 
+    public AudioSource audioSource;
+
     [Header("UI")]
+
+    public DeathMenu deathMenu;
+
     public Slider healthBarSlider;
     public TextMeshProUGUI healthBarValueText;
 
@@ -79,6 +87,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     void Update()
     {
+       
         if (isDead) return;
 
         // Track movement by position change
@@ -111,6 +120,12 @@ public class PlayerHealth : MonoBehaviour, IDamageable
                 regenUsedThisIdle = true; // once per idle period
             }
         }
+        //TESTING ONLY DIE PRESS K
+     if (Input.GetKeyDown(KeyCode.K)) {
+        Debug.Log("K pressed");
+        TakeDamage(999f); }
+
+
     }
 
     // 31-59 => up to 60, 1-29 => up to 30, otherwise no regen
@@ -201,35 +216,48 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     }
 
     private void Die()
+{
+    if (isDead) return;
+
+    isDead = true;
+    PlayerIsDead = true;
+
+    StopRegen();
+
+    Debug.Log("Player has died!");
+
+    foreach (var script in scriptsToDisable)
     {
-        if (isDead) return;
-
-        isDead = true;
-        PlayerIsDead = true;
-
-        StopRegen();
-
-        Debug.Log("Player has died!");
-
-        foreach (var script in scriptsToDisable)
-        {
-            if (script != null)
-                script.enabled = false;
-        }
-
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-
-        var rb = GetComponent<Rigidbody>();
-        if (rb)
-        {
-            rb.linearVelocity = Vector3.zero;
-            rb.isKinematic = true;
-        }
-
-        DeathTransition.Instance?.PlayerDied();
+        if (script != null)
+            script.enabled = false;
     }
 
+    Cursor.lockState = CursorLockMode.None;
+    Cursor.visible = true;
+
+    var rb = GetComponent<Rigidbody>();
+    if (rb)
+    {
+        rb.linearVelocity = Vector3.zero;
+        rb.isKinematic = true;
+    }
+
+  if (audioSource != null)
+{
+    if (deathSound != null)
+        audioSource.PlayOneShot(deathSound);
+
+    if (deathSound2 != null)
+        audioSource.PlayOneShot(deathSound2);
+}
+
+    DeathTransition.Instance?.PlayerDied();
+
+    // if (deathMenu != null)
+    // {
+    //     deathMenu.ShowDeath();
+    // }
+}
     public void ResetPlayer()
     {
         isDead = false;
@@ -246,6 +274,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         UpdateHealthUI();
     }
 
+    
     // ---------------- THORNS ----------------
     private void DoThorns()
     {

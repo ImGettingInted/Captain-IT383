@@ -8,8 +8,12 @@ public class FireBullet : MonoBehaviour
     public Transform spawnPoint;
     public float bulletSpeed = 20f;
 
-    public float fireRate = 1f; // time between shots
+    public float fireRate = 1f;
     private float nextFireTime = 0f;
+
+    [Header("SFX")]
+    public AudioSource audioSource;
+    public AudioClip shootSound;
 
     void Start()
     {
@@ -22,6 +26,12 @@ public class FireBullet : MonoBehaviour
         if (Time.time < nextFireTime) return;
 
         nextFireTime = Time.time + fireRate;
+
+        // 🔊 play sound
+        if (audioSource != null && shootSound != null)
+        {
+            audioSource.PlayOneShot(shootSound);
+        }
 
         GameObject spawnBullet = Instantiate(bullet, spawnPoint.position, spawnPoint.rotation);
 

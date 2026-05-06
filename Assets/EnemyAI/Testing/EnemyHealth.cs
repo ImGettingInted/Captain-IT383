@@ -3,6 +3,13 @@ using System.Collections;
 
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
+
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip hurtSound;
+    public AudioClip deathSound;
+
+
     [Header("Health Settings")]
     public float maxHealth = 100f;
     public float currentHealth;
@@ -38,6 +45,10 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     public void TakeDamage(float amount)
     {
         currentHealth = Mathf.Clamp(currentHealth - amount, 0, maxHealth);
+
+        if (hurtSound != null && audioSource != null)
+            audioSource.PlayOneShot(hurtSound);
+
         StartCoroutine(FlashRed());
 
         if (currentHealth <= 0)
@@ -65,6 +76,9 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     private void Die()
     {
         Debug.Log($"{name} has died!");
+
+          if (audioSource != null && deathSound != null)
+        audioSource.PlayOneShot(deathSound);
 
 
         if (enemyScript != null)

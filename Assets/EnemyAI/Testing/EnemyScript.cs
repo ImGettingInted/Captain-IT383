@@ -9,6 +9,14 @@ public enum EnemyState { Patrol, Chase, Attack }
 [RequireComponent(typeof(Animator))]
 public class EnemyScript : MonoBehaviour
 {
+[Header("Combat Audio")]
+    public AudioSource audioSource;
+
+    public AudioClip growlSound;
+    public AudioClip attackHitSound;
+    public AudioClip attackMissSound;
+
+
     [Header("References")]
     public Transform player;
 
@@ -71,6 +79,15 @@ public class EnemyScript : MonoBehaviour
     // player reacquire
     private const string PlayerTag = "Player";
     private float nextPlayerSearchTime = 0f;
+
+    private void PlaySound(AudioClip clip)
+{
+    if (audioSource != null && clip != null)
+    {
+        audioSource.pitch = Random.Range(0.95f, 1.05f);
+        audioSource.PlayOneShot(clip);
+    }
+}
 
     void Awake()
     {
@@ -217,6 +234,7 @@ public class EnemyScript : MonoBehaviour
             agent.isStopped = false;
             agent.speed = chaseSpeed;
         }
+          PlaySound(growlSound);
     }
 
     private void EnterAttack()
@@ -347,12 +365,28 @@ public class EnemyScript : MonoBehaviour
         if (player != null)
         {
             float dist = Vector3.Distance(transform.position, player.position);
+            
+            bool hit = false;
+
             if (dist <= attackRange + 0.5f)
             {
                 var dmg = player.GetComponent<IDamageable>();
                 if (dmg != null)
                     dmg.TakeDamage(attackDamage);
+                     hit = true;
+
             }
+
+            if (audioSource != null)
+            {
+                AudioClip clip = hit ? attackHitSound : attackMissSound;
+                if (clip != null)
+                {
+                    audioSource.pitch = Random.Range(0.95f, 1.05f);
+                    audioSource.PlayOneShot(clip);
+                }
+            }
+
         }
 
         yield return new WaitForSeconds(hitActiveTime);

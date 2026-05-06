@@ -22,7 +22,7 @@ public class WaveSpawner : MonoBehaviour
     {
         if (currentWaveIndex >= waves.Length)
         {
-            Debug.Log("You survived every wave!");
+            // Debug.Log("You survived every wave!");
             return;
         }
 
