@@ -10,7 +10,9 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     public float maxHealth = 100f;
     public float currentHealth;
 
-    
+    [Header("Audio")]
+    public AudioClip deathSound;
+    public AudioSource audioSource;
 
     [Header("UI")]
 
@@ -238,6 +240,11 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         rb.linearVelocity = Vector3.zero;
         rb.isKinematic = true;
     }
+
+    if (deathSound != null && audioSource != null)
+{
+    audioSource.PlayOneShot(deathSound);
+}
 
     DeathTransition.Instance?.PlayerDied();
 
