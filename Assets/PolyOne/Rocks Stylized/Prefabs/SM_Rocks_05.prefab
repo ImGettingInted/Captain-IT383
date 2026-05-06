@@ -104,6 +104,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d46216785542264c8f0678687d772bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RocksScript
+  crashDamage: 999
+  audioSource: {fileID: 0}
+  crashSound: {fileID: 8300000, guid: 78335ecda3c442940b6020451f9e3d54, type: 3}
 --- !u!64 &3511119152576970741
 MeshCollider:
   m_ObjectHideFlags: 0
