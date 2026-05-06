@@ -5,6 +5,12 @@ public class DeathMenu : MonoBehaviour
 {
     public GameObject deathUI;
 
+        void Start()
+    {
+        deathUI.SetActive(false);
+        Time.timeScale = 1f;
+    }
+
     public void Restart()
     {
         Time.timeScale = 1f;
