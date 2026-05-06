@@ -3017,6 +3017,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DeathMenu
   deathUI: {fileID: 71636760}
+  uiAudioSource: {fileID: 0}
+  clickSound: {fileID: 0}
 --- !u!4 &926486762 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
@@ -3688,6 +3690,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   deathSound: {fileID: 8300000, guid: ac25c3f25095d9f40a25340b79460bc5, type: 3}
+  deathSound2: {fileID: 8300000, guid: 33726e43a9cbeab4a8d558d265a58c7b, type: 3}
   audioSource: {fileID: 2069588350}
   deathMenu: {fileID: 0}
   healthBarSlider: {fileID: 771308302}
@@ -4771,7 +4774,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.51
+  m_Volume: 0.42
   m_Pitch: 1
   Loop: 0
   Mute: 0

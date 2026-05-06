@@ -12,6 +12,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     [Header("Audio")]
     public AudioClip deathSound;
+    public AudioClip deathSound2; 
     public AudioSource audioSource;
 
     [Header("UI")]
@@ -241,9 +242,13 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         rb.isKinematic = true;
     }
 
-    if (deathSound != null && audioSource != null)
+  if (audioSource != null)
 {
-    audioSource.PlayOneShot(deathSound);
+    if (deathSound != null)
+        audioSource.PlayOneShot(deathSound);
+
+    if (deathSound2 != null)
+        audioSource.PlayOneShot(deathSound2);
 }
 
     DeathTransition.Instance?.PlayerDied();
