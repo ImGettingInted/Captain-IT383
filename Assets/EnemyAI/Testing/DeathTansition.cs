@@ -36,20 +36,20 @@ public class DeathTransition : MonoBehaviour
         StartCoroutine(FadeToDeathScene());
     }
 
-    private IEnumerator FadeToDeathScene()
-    {
-        transitioning = true;
+   private IEnumerator FadeToDeathScene()
+{
+    transitioning = true;
 
-        yield return Fade(1f); // fade to black
-        SceneManager.LoadScene(deathSceneName);
-        yield return null;
+    yield return Fade(1f); // fade to black
 
-        // After loading, try to find a fadeGroup in the new scene (optional)
-        // If you keep the same CanvasGroup across scenes, you can skip this.
-        yield return Fade(1f); // stay black for a frame
+    SceneManager.LoadScene(deathSceneName);
 
-        transitioning = false;
-    }
+    yield return null; // wait 1 frame for scene load
+
+    yield return Fade(0f); // 👈 THIS reveals your menu
+
+    transitioning = false;
+}
 
     public IEnumerator Fade(float targetAlpha)
     {

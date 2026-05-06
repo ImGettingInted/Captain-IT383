@@ -84,6 +84,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     void Update()
     {
+       
         if (isDead) return;
 
         // Track movement by position change
@@ -116,6 +117,12 @@ public class PlayerHealth : MonoBehaviour, IDamageable
                 regenUsedThisIdle = true; // once per idle period
             }
         }
+        //TESTING ONLY DIE PRESS K
+     if (Input.GetKeyDown(KeyCode.K)) {
+        Debug.Log("K pressed");
+        TakeDamage(999f); }
+
+
     }
 
     // 31-59 => up to 60, 1-29 => up to 30, otherwise no regen
@@ -234,10 +241,10 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     DeathTransition.Instance?.PlayerDied();
 
-    if (deathMenu != null)
-    {
-        deathMenu.ShowDeath();
-    }
+    // if (deathMenu != null)
+    // {
+    //     deathMenu.ShowDeath();
+    // }
 }
     public void ResetPlayer()
     {
@@ -255,6 +262,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         UpdateHealthUI();
     }
 
+    
     // ---------------- THORNS ----------------
     private void DoThorns()
     {
